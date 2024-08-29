@@ -115,6 +115,60 @@ class AddressBook
 			System.out.println();
 		}
 	}
+	
+	public Contact findcontact(String firstName, String lastName)
+	  {
+		  for(Contact contact: contacts)
+		  {
+			  if(contact.getFirstName().equalsIgnoreCase(firstName) && contact.getLastName().equalsIgnoreCase(lastName))
+			  {
+				  return contact;
+			  }
+		  }
+		return null;
+	  }
+
+
+	public void editContact(String firstName, String lastName, Scanner sc)
+	{
+		Contact contact = findcontact(firstName, lastName);
+		if(contact != null)
+		{
+			System.out.println("Edit Contact details for: "+firstName+ " "+lastName);
+			
+			System.out.println("New First Name: ");
+			contact.setFirstName(sc.nextLine());
+			
+			System.out.println("New Last Name: ");
+			contact.setLastName(sc.nextLine());
+			
+			System.out.println("New Address: ");
+			contact.setAddress(sc.nextLine());
+			
+			System.out.println("New City: ");
+			contact.setCity(sc.nextLine());
+			
+			System.out.println("New State: ");
+			contact.setState(sc.nextLine());
+			
+			System.out.println("New Zip Code: ");
+			contact.setZip(sc.nextLong());
+			
+			System.out.println("New Phone Number: ");
+			contact.setPhoneNum(sc.nextLong());
+			sc.nextLine();
+			
+			System.out.println("New Email: ");
+			contact.setEmail(sc.nextLine());
+			
+			System.out.println("Contact Updated");
+		}
+		else
+		{
+			System.out.println("Contact not found");
+		}
+				
+	 }
 }
 
 
@@ -130,8 +184,19 @@ public class UserCase1 {
 		System.out.println("------------------------------------------------");
 		System.out.println();
 		
-		while (true) {
-	          System.out.println("Enter the Contact Details: \n");
+		 while (true) {
+	    	  System.out.println("Choose the option");
+	    	  System.out.println("1. Add Contact");
+	    	  System.out.println("2. Edit Contact");
+	    	  System.out.println("3. Display Contacts");
+	    	  System.out.println("4. Exit");
+	    	  System.out.println("Enter your choice: ");
+	    	  
+	    	  int choice = sc.nextInt();
+	    	  sc.nextLine();
+	    	  
+	    	  switch(choice) {
+	    	  case 1: System.out.println("Enter the Contact Details: \n");
 
 	          System.out.print("FirstName: ");
 	          String firstName = sc.nextLine();
@@ -162,21 +227,37 @@ public class UserCase1 {
 
 	          Contact contact = new Contact(firstName, lastName, address, city, state, email, zip, phoneNum);
 	          addressbook.addContact(contact);
-
-	          System.out.print("Do you want to add another contact? (y->Yes || n->No): ");
-	          String option = sc.nextLine();
-
-	          if (option.equalsIgnoreCase("n")) {
-	              break;
-	          }
-	      }
-            
-            System.out.println("------------------------------------------------");
-		
-		System.out.println("\n~~~~~~~Contact Details~~~~~~~ ");
-		addressbook.display();
-		
-		sc.close();
+	          break;
+	          
+	    	  case 2:
+	    		  System.out.println("Enter the name to edit");
+	    		  System.out.println("First Name: ");
+	    		  String editFirstName = sc.nextLine();
+	    		  
+	    		  System.out.println("Last Name: ");
+	    		  String editLastName = sc.nextLine();
+	    		  
+	    		  addressbook.editContact(editFirstName, editLastName, sc);
+	    		  break;
+	    		  
+	    	  case 3:
+	    		  System.out.println("------------------------------------------------");
+	    		  System.out.println("\n~~~~~~~Contact Details~~~~~~~ ");
+	    		  System.out.println("\n All Contact Details");
+	    		  addressbook.display();
+	    		  break;
+	    		  
+	    	  case 4:
+	    		  System.out.println("Clossing...............");
+	    		  sc.close();
+	    		  return;
+	    		  
+	    		  default :
+	    			  System.out.println("Invalid choice entered.");
+	    		  
+	    	  }
+	      }	
+        
 	}
 
 }
