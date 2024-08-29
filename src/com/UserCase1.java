@@ -106,14 +106,16 @@ class AddressBook
 	
 	public void display()
 	{
-		for(Contact contact: contacts)
-		{
-			System.out.println("Name: " + contact.firstName + " " + contact.lastName +
-                    "\nAddress: " + contact.address + "\n" + contact.city + " " +
-                    contact.state + " " + contact.zip + "\nPhone Number: " + contact.phoneNum +
-                    "\nEmail: " + contact.email);
-			System.out.println();
-		}
+		
+			for(Contact contact: contacts)
+			{
+				System.out.println("Name: " + contact.firstName + " " + contact.lastName +
+	                    "\nAddress: " + contact.address + "\n" + contact.city + " " +
+	                    contact.state + " " + contact.zip + "\nPhone Number: " + contact.phoneNum +
+	                    "\nEmail: " + contact.email);
+				System.out.println();
+	    		  System.out.println("------------------------------------------------");
+			}		
 	}
 	
 	public Contact findcontact(String firstName, String lastName)
@@ -161,7 +163,7 @@ class AddressBook
 			System.out.println("New Email: ");
 			contact.setEmail(sc.nextLine());
 			
-			System.out.println("Contact Updated");
+			
 		}
 		else
 		{
@@ -169,6 +171,24 @@ class AddressBook
 		}
 				
 	 }
+	
+	public void delete(String firstName, String lastName)
+	{
+		Contact contact = findcontact(firstName, lastName);
+		if(contact != null)
+		{
+			contacts.remove(contact);
+			System.out.println("------------------------------------------------");
+			System.out.println(firstName+ " "+lastName+" got deleted from Address Book.");
+			System.out.println("------------------------------------------------");
+		}
+		else
+		{
+			System.out.println("------------------------------------------------");
+			System.out.println("Contact not found");
+			System.out.println("------------------------------------------------");
+		}
+	}
 }
 
 
@@ -189,13 +209,15 @@ public class UserCase1 {
 	    	  System.out.println("1. Add Contact");
 	    	  System.out.println("2. Edit Contact");
 	    	  System.out.println("3. Display Contacts");
-	    	  System.out.println("4. Exit");
+	    	  System.out.println("4. Delete Contact");
+	    	  System.out.println("5. Exit");
 	    	  System.out.println("Enter your choice: ");
 	    	  
 	    	  int choice = sc.nextInt();
 	    	  sc.nextLine();
 	    	  
 	    	  switch(choice) {
+	    	  
 	    	  case 1: System.out.println("Enter the Contact Details: \n");
 
 	          System.out.print("FirstName: ");
@@ -227,6 +249,11 @@ public class UserCase1 {
 
 	          Contact contact = new Contact(firstName, lastName, address, city, state, email, zip, phoneNum);
 	          addressbook.addContact(contact);
+	          
+    		  System.out.println("------------------------------------------------");
+    		  System.out.println("Contact Updated");
+    		  System.out.println("------------------------------------------------");
+    		  
 	          break;
 	          
 	    	  case 2:
@@ -242,18 +269,59 @@ public class UserCase1 {
 	    		  
 	    	  case 3:
 	    		  System.out.println("------------------------------------------------");
-	    		  System.out.println("\n~~~~~~~Contact Details~~~~~~~ ");
-	    		  System.out.println("\n All Contact Details");
-	    		  addressbook.display();
+	    		  System.out.println("~~~~~~~Contact Details~~~~~~~ ");
+	    		  System.out.println();
+	    		  
+	    		  if(addressbook.contacts.isEmpty())
+	    		  {
+	    			  System.out.println("------------------------------------------------");
+	    			  System.out.println("Address Book is Empty.");
+	    			  System.out.println("------------------------------------------------");
+	    			  System.out.println();
+	    		  }
+	    		  else
+	    		  {
+	    			  System.out.println("\nAll Contact Details");
+	    			  addressbook.display();
+	    		  }
 	    		  break;
 	    		  
 	    	  case 4:
+	    		  if(addressbook.contacts.isEmpty())
+	    		  {
+	    			  System.out.println("------------------------------------------------");
+	    			  System.out.println("Address Book is Empty. There is nothing to delete.");
+	    			  System.out.println("------------------------------------------------");
+	    			  System.out.println();
+	    			  
+	    		  }
+	    		  else
+	    		  {
+	    			  System.out.println("Enter name to delete.");
+		    		  System.out.println("First Name: ");
+		    		  String deletefirstName = sc.nextLine();
+		    		  
+		    		  System.out.print("Last Name: ");
+		    		  String deletelastName = sc.nextLine();
+		    		  
+		    		  addressbook.delete(deletefirstName, deletelastName);
+	    		  }
+	    		  
+	    		  break;
+	    		  
+	    		  
+	    	  case 5:
+	    		  System.out.println("------------------------------------------------");
+	    		  System.out.println("Thanks for using Address Book.");
 	    		  System.out.println("Clossing...............");
+	    		  System.out.println("------------------------------------------------");
 	    		  sc.close();
 	    		  return;
 	    		  
 	    		  default :
+	    			  System.out.println("------------------------------------------------");
 	    			  System.out.println("Invalid choice entered.");
+	    			  System.out.println("------------------------------------------------");
 	    		  
 	    	  }
 	      }	
