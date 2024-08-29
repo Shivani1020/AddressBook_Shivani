@@ -108,8 +108,10 @@ class AddressBook
 	{
 		for(Contact contact: contacts)
 		{
-			System.out.println("Name: "+contact.firstName+" "+contact.lastName+ "\nAddress: "+contact.address+"\n"+contact.city+" "+contact.state+" "+contact.zip+"\nPhone Number: "+contact.phoneNum+"\nEmail: "+contact.email);
-			System.out.println();
+			System.out.println("Name: " + contact.firstName + " " + contact.lastName +
+                    "\nAddress: " + contact.address + "\n" + contact.city + " " +
+                    contact.state + " " + contact.zip + "\nPhone Number: " + contact.phoneNum +
+                    "\nEmail: " + contact.email);
 			System.out.println();
 		}
 	}
@@ -127,36 +129,47 @@ public class UserCase1 {
 		System.out.println("~~~~~~~~~~~~Welcome to Address Book~~~~~~~~~~~~");
 		System.out.println("------------------------------------------------");
 		System.out.println();
-			System.out.println("Enter the Contact Details: \n");
-			
-			System.out.println("FirstName: ");
-			String firstName = sc.nextLine();
-			
-			System.out.println("LastName: ");
-			String lastName = sc.nextLine();
-			
-			System.out.println("Address: ");
-			String address = sc.nextLine();
-			
-			System.out.println("City: ");
-			String city = sc.nextLine();
-			
-			System.out.println("State: ");
-			String state = sc.nextLine();
-			
-			System.out.println("Email: ");
-			String email = sc.nextLine();
-			
-			System.out.println("Zip Code: ");
-			long zip = sc.nextLong();
-			
-			System.out.println("Phone Number: ");
-			long phoneNum = sc.nextLong();
-			
-			sc.nextLine();
-			
-			Contact contact = new Contact(firstName, lastName, address, city, state, email, zip, phoneNum);
-            addressbook.addContact(contact);
+		
+		while (true) {
+	          System.out.println("Enter the Contact Details: \n");
+
+	          System.out.print("FirstName: ");
+	          String firstName = sc.nextLine();
+
+	          System.out.print("LastName: ");
+	          String lastName = sc.nextLine();
+
+	          System.out.print("Address: ");
+	          String address = sc.nextLine();
+
+	          System.out.print("City: ");
+	          String city = sc.nextLine();
+
+	          System.out.print("State: ");
+	          String state = sc.nextLine();
+
+	          System.out.print("Email: ");
+	          String email = sc.nextLine();
+
+	          System.out.print("Zip Code: ");
+	          long zip = sc.nextLong();
+
+	          System.out.print("Phone Number: ");
+	          long phoneNum = sc.nextLong();
+
+	          // Consume the leftover newline
+	          sc.nextLine();
+
+	          Contact contact = new Contact(firstName, lastName, address, city, state, email, zip, phoneNum);
+	          addressbook.addContact(contact);
+
+	          System.out.print("Do you want to add another contact? (y->Yes || n->No): ");
+	          String option = sc.nextLine();
+
+	          if (option.equalsIgnoreCase("n")) {
+	              break;
+	          }
+	      }
             
             System.out.println("------------------------------------------------");
 		
